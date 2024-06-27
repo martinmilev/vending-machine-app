@@ -1,54 +1,25 @@
-import { useEffect, useState } from "react";
 import "./App.css";
 import { Coins } from "./components/Coins";
 import VendingMachine from "./components/VendingMachine";
-import mockData from "../mockApi/mockData.json";
+import useVendingMachine from "./hooks/useVendingMachine";
 
 function App() {
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [products, setProducts] = useState([]);
-  const [currency, setCurrency] = useState({ sign: "", cent: "" });
+  const {
+    totalAmount,
+    products,
+    currency,
+    loading,
+    handleCoinInsertion,
+    returnCash,
+  } = useVendingMachine();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const products = await fetchMockProducts();
-      const currency = await fetchMockCurrency();
-      setProducts(products);
-      setCurrency(currency);
-    } catch (error) {
-      console.error("Error fetching mock posts:", error);
-    }
-  };
-
-  const fetchMockProducts = () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(mockData.products);
-      }, 1000);
-    });
-  };
-
-  const fetchMockCurrency = () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(mockData.EU);
-      }, 1000);
-    });
-  };
-
-  const handleCoinInsertion = (amount: number): void => {
-    setTotalAmount((prevAmount) =>
-      parseFloat((prevAmount + amount).toFixed(2))
+  if (loading) {
+    return (
+      <div className="loading">
+        <div className="loader"></div>
+      </div>
     );
-  };
-
-  const returnCash = () => {
-    setTotalAmount(0);
-  };
+  }
 
   return (
     <div className="container">
@@ -56,7 +27,7 @@ function App() {
         <VendingMachine
           products={products}
           totalAmount={totalAmount}
-          setTotalAmount={setTotalAmount}
+          setTotalAmount={handleCoinInsertion}
           currency={currency}
         />
         <Coins
