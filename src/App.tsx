@@ -41,27 +41,29 @@ function App() {
   };
 
   const handleCoinInsertion = (amount: number): void => {
-    setTotalAmount((prevAmount) => prevAmount + amount);
+    setTotalAmount((prevAmount) =>
+      parseFloat((prevAmount + amount).toFixed(2))
+    );
   };
 
   const returnCash = () => {
-    setTotalAmount(0)
-  }
+    setTotalAmount(0);
+  };
 
   return (
     <div className="container">
       <div className="inner-container">
-          <VendingMachine
-            products={products}
-            totalAmount={totalAmount}
-            setTotalAmount={setTotalAmount}
-            currency={currency}
-          />
-          <Coins
-            handleCoinInsertion={handleCoinInsertion}
-            currency={currency}
-            returnCash={returnCash}
-          />
+        <VendingMachine
+          products={products}
+          totalAmount={totalAmount}
+          setTotalAmount={setTotalAmount}
+          currency={currency}
+        />
+        <Coins
+          handleCoinInsertion={handleCoinInsertion}
+          currency={currency}
+          returnCash={returnCash}
+        />
       </div>
     </div>
   );

@@ -20,9 +20,7 @@ const Coins = ({ handleCoinInsertion, currency, returnCash }) =>
         })}
       </div>
       <div className="return-cash">
-        <button onClick={() => returnCash()}>
-          Return Cash
-        </button>
+        <button onClick={() => returnCash()}>Return Cash</button>
       </div>
     </div>
   ) : (

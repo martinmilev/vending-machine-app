@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { Screen } from "./Screen";
 import { Products } from "./Products";
 
-const VendingMachine = ({ products, totalAmount, setTotalAmount, currency }) => {
+const VendingMachine = ({
+  products,
+  totalAmount,
+  setTotalAmount,
+  currency,
+}) => {
   const [message, setMessage] = useState("");
   const [messageCashback, setMessageCashback] = useState("");
   const [showProgressBar, setShowProgressBar] = useState(false);
@@ -24,7 +29,7 @@ const VendingMachine = ({ products, totalAmount, setTotalAmount, currency }) => 
       setPurchaseInProgress(true);
       setShowProgressBar(true);
       setMessage(`Preparing your ${product.name}...`);
-      const cashBack = (totalAmount - product.price).toFixed(1);
+      const cashBack = calculateCashback(totalAmount, product.price);
       setTimeout(() => {
         setShowProgressBar(false);
         setTotalAmount(0);
@@ -39,10 +44,28 @@ const VendingMachine = ({ products, totalAmount, setTotalAmount, currency }) => 
     }
   };
 
+  const calculateCashback = (totalAmount, price) => {
+    const cashback = totalAmount - price;
+    if (cashback === 0) {
+      return;
+    }
+    if ((price * 100) % 10 === 0) {
+      return cashback.toFixed(2);
+    }
+    if (price % 10 === 0) {
+      return cashback;
+    }
+    return cashback.toFixed(1);
+  };
+
   return (
     <div className="vending-machine">
       <Screen
-        rows={[`Credit: ${totalAmount}${currency.sign}`, message, messageCashback]}
+        rows={[
+          `Credit: ${totalAmount}${currency.sign}`,
+          message,
+          messageCashback,
+        ]}
         showProgress={showProgressBar}
       />
       <Products
