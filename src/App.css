@@ -5,6 +5,28 @@
   text-align: center;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+}
+
+.inner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.machineContainer {
+  flex: 3;
+}
+
+.coinContainer {
+  flex: 1;
+}
+
 .vending-machine {
   text-align: center;
   padding: 20px;
@@ -22,7 +44,7 @@
 .grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 20px;
   max-width: 600px;
   justify-content: center;
 }
@@ -47,7 +69,8 @@
 }
 
 .coin-buttons {
-  margin: 20px;
+  max-width: 10%;
+  height: 100%;
 }
 
 .coin-buttons button {
