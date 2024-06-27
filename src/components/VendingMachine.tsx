@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Screen } from "./Screen";
 import { Products } from "./Products";
 
-const VendingMachine = ({ products, totalAmount, setTotalAmount }) => {
+const VendingMachine = ({ products, totalAmount, setTotalAmount, currency }) => {
   const [message, setMessage] = useState("");
   const [messageCashback, setMessageCashback] = useState("");
   const [showProgressBar, setShowProgressBar] = useState(false);
@@ -31,20 +31,25 @@ const VendingMachine = ({ products, totalAmount, setTotalAmount }) => {
         setPurchaseInProgress(false);
         setMessage(`Enjoy your ${product.name}!`);
         if (cashBack) {
-          setMessageCashback(`You have ${cashBack}€ cashback.`);
+          setMessageCashback(`You have ${cashBack}${currency.sign} cashback.`);
         }
       }, 5000);
     } else {
       setMessage(`Insert more coins to purchase ${product.name}.`);
     }
   };
+
   return (
     <div className="vending-machine">
       <Screen
-        rows={[`Credit: ${totalAmount}€`, message, messageCashback]}
+        rows={[`Credit: ${totalAmount}${currency.sign}`, message, messageCashback]}
         showProgress={showProgressBar}
       />
-      <Products products={products} handleClick={handlePurchase} disabled={purchaseInProgress} />
+      <Products
+        products={products}
+        handleClick={handlePurchase}
+        disabled={purchaseInProgress}
+      />
     </div>
   );
 };

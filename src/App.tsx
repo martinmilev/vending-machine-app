@@ -1,36 +1,63 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Coins } from "./components/Coins";
 import VendingMachine from "./components/VendingMachine";
+import mockData from "../mockApi/mockData.json";
 
 function App() {
   const [totalAmount, setTotalAmount] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [currency, setCurrency] = useState({ sign: "", cent: "" });
 
-  const coffees = [
-    { id: 1, name: "Espresso", price: 1.5 },
-    { id: 2, name: "Latte", price: 2.0 },
-    { id: 3, name: "Cappuccino", price: 2.0 },
-    { id: 4, name: "Mocha", price: 2.5 },
-    { id: 5, name: "Americano", price: 1.8 },
-    { id: 6, name: "Macchiato", price: 2.0 },
-    { id: 7, name: "Flat White", price: 2.2 },
-    { id: 8, name: "Affogato", price: 3.0 },
-    { id: 9, name: "Irish Coffee", price: 2.5 },
-    { id: 10, name: "Vienna Coffee", price: 2.3 },
-  ];
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const products = await fetchMockProducts();
+      const currency = await fetchMockCurrency();
+      setProducts(products);
+      setCurrency(currency);
+    } catch (error) {
+      console.error("Error fetching mock posts:", error);
+    }
+  };
+
+  const fetchMockProducts = () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(mockData.products);
+      }, 1000);
+    });
+  };
+
+  const fetchMockCurrency = () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(mockData.EU);
+      }, 1000);
+    });
+  };
 
   const handleCoinInsertion = (amount: number): void => {
     setTotalAmount((prevAmount) => prevAmount + amount);
   };
 
   return (
-    <div>
-      <Coins handleCoinInsertion={handleCoinInsertion} />
-      <VendingMachine
-        products={coffees}
-        totalAmount={totalAmount}
-        setTotalAmount={setTotalAmount}
-      />
+    <div className="container">
+      <div className="inner-container">
+          <VendingMachine
+            products={products}
+            totalAmount={totalAmount}
+            setTotalAmount={setTotalAmount}
+            currency={currency}
+          />
+          <Coins
+            handleCoinInsertion={handleCoinInsertion}
+            currency={currency}
+          />
+      </div>
     </div>
   );
 }
