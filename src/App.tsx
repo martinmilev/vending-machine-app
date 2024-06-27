@@ -1,17 +1,23 @@
+import { useEffect } from "react";
 import "./App.css";
 import { Coins } from "./components/Coins";
 import VendingMachine from "./components/VendingMachine";
 import useVendingMachine from "./hooks/useVendingMachine";
 
-function App() {
+const App = () => {
   const {
+    fetchData,
     totalAmount,
     products,
     currency,
     loading,
     handleCoinInsertion,
-    returnCash,
+    resetTotalAmount,
   } = useVendingMachine();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   if (loading) {
     return (
@@ -27,13 +33,13 @@ function App() {
         <VendingMachine
           products={products}
           totalAmount={totalAmount}
-          setTotalAmount={handleCoinInsertion}
           currency={currency}
+          resetTotalAmount={resetTotalAmount}
         />
         <Coins
-          handleCoinInsertion={handleCoinInsertion}
           currency={currency}
-          returnCash={returnCash}
+          handleCoinInsertion={handleCoinInsertion}
+          returnCash={resetTotalAmount}
         />
       </div>
     </div>

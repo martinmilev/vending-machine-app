@@ -1,18 +1,22 @@
-const Coins = ({ handleCoinInsertion, currency, returnCash }) =>
-  currency.denominations ? (
+const Coins = ({currency, handleCoinInsertion, returnCash}) => {
+  if (!currency.denominations) {
+    return <div></div>;
+  }
+
+  return (
     <div className="coins">
       <div className="coin-buttons">
         {currency.denominations.map((d) => {
           if (d % 1 === 0) {
             return (
-              <button onClick={() => handleCoinInsertion(d)}>
+              <button onClick={() => handleCoinInsertion(d)} key={d}>
                 {d}
                 {currency.sign}
               </button>
             );
           }
           return (
-            <button onClick={() => handleCoinInsertion(d)}>
+            <button onClick={() => handleCoinInsertion(d)} key={d}>
               {d * 100}
               {currency.cent}
             </button>
@@ -23,8 +27,7 @@ const Coins = ({ handleCoinInsertion, currency, returnCash }) =>
         <button onClick={() => returnCash()}>Return Cash</button>
       </div>
     </div>
-  ) : (
-    <div></div>
   );
+};
 
 export default Coins;

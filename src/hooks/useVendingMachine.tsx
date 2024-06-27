@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import mockData from "../../mockApi/mockData.json";
 
 const useVendingMachine = () => {
@@ -6,10 +6,6 @@ const useVendingMachine = () => {
   const [products, setProducts] = useState([]);
   const [currency, setCurrency] = useState({ sign: "", cent: "" });
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const fetchData = async () => {
     try {
@@ -46,17 +42,15 @@ const useVendingMachine = () => {
     );
   };
 
-  const returnCash = () => {
-    setTotalAmount(0);
-  };
-
   return {
+    setTotalAmount,
+    fetchData,
+    loading,
     totalAmount,
     products,
     currency,
-    loading,
     handleCoinInsertion,
-    returnCash,
+    resetTotalAmount: () => setTotalAmount(0),
   };
 };
 

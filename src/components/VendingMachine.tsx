@@ -5,8 +5,8 @@ import { Products } from "./Products";
 const VendingMachine = ({
   products,
   totalAmount,
-  setTotalAmount,
   currency,
+  resetTotalAmount,
 }) => {
   const [message, setMessage] = useState("");
   const [messageCashback, setMessageCashback] = useState("");
@@ -32,7 +32,7 @@ const VendingMachine = ({
       const cashBack = calculateCashback(totalAmount, product.price);
       setTimeout(() => {
         setShowProgressBar(false);
-        setTotalAmount(0);
+        resetTotalAmount();
         setPurchaseInProgress(false);
         setMessage(`Enjoy your ${product.name}!`);
         if (cashBack) {
