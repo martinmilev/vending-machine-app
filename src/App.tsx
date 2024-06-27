@@ -44,6 +44,10 @@ function App() {
     setTotalAmount((prevAmount) => prevAmount + amount);
   };
 
+  const returnCash = () => {
+    setTotalAmount(0)
+  }
+
   return (
     <div className="container">
       <div className="inner-container">
@@ -56,6 +60,7 @@ function App() {
           <Coins
             handleCoinInsertion={handleCoinInsertion}
             currency={currency}
+            returnCash={returnCash}
           />
       </div>
     </div>
