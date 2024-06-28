@@ -30,7 +30,7 @@
   background-color: #242424;
   border: 1px solid #ccc;
   border-radius: 8px;
-
+  min-height: 30%;
   .vending-machine-screen {
     padding: 10px 0;
     color: #201a17;
@@ -102,8 +102,7 @@
 
   .return-cash {
     button {
-      max-width: 70%;
-      min-width: 40px;
+      min-width: 20px;
       margin: 10px;
       border-radius: 8px;
       background-color: #2b3d6d;
