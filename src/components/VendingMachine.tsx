@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { Screen } from "./Screen";
 import { Products } from "./Products";
 import { Product } from "../ts/types/product";
+import { Currency } from "../ts/types/currency";
 
 interface VendingMachineProps {
   products: Product[];
   totalAmount: number;
-  currency: string;
+  currency: Currency;
   resetTotalAmount: () => void;
 }
 
