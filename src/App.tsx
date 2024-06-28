@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "./App.css";
+import "./App.scss";
 import { Coins } from "./components/Coins";
 import VendingMachine from "./components/VendingMachine";
 import useVendingMachine from "./hooks/useVendingMachine";

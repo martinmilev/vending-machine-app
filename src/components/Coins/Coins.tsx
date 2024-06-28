@@ -1,12 +1,20 @@
-const Coins = ({currency, handleCoinInsertion, returnCash}) => {
-  if (!currency.denominations) {
-    return <div></div>;
-  }
+import { Currency } from "../../ts/types/currency";
 
-  return (
-    <div className="coins">
-      <div className="coin-buttons">
-        {currency.denominations.map((d) => {
+interface CoinsProps {
+  currency: Currency;
+  handleCoinInsertion: (denomination: number) => void;
+  returnCash: () => void;
+}
+
+const Coins: React.FC<CoinsProps> = ({
+  currency,
+  handleCoinInsertion,
+  returnCash,
+}) => (
+  <div className="coins">
+    <div className="coin-buttons">
+      {currency.denominations &&
+        currency.denominations.map((d) => {
           if (d % 1 === 0) {
             return (
               <button onClick={() => handleCoinInsertion(d)} key={d}>
@@ -22,12 +30,11 @@ const Coins = ({currency, handleCoinInsertion, returnCash}) => {
             </button>
           );
         })}
-      </div>
-      <div className="return-cash">
-        <button onClick={() => returnCash()}>Return Cash</button>
-      </div>
     </div>
-  );
-};
+    <div className="return-cash">
+      <button onClick={() => returnCash()}>Return Cash</button>
+    </div>
+  </div>
+);
 
 export default Coins;

@@ -1,17 +1,25 @@
 import { useEffect, useState } from "react";
 import { Screen } from "./Screen";
 import { Products } from "./Products";
+import { Product } from "../ts/types/product";
 
-const VendingMachine = ({
+interface VendingMachineProps {
+  products: Product[];
+  totalAmount: number;
+  currency: string;
+  resetTotalAmount: () => void;
+}
+
+const VendingMachine: React.FC<VendingMachineProps> = ({
   products,
   totalAmount,
   currency,
   resetTotalAmount,
 }) => {
-  const [message, setMessage] = useState("");
-  const [messageCashback, setMessageCashback] = useState("");
-  const [showProgressBar, setShowProgressBar] = useState(false);
-  const [purchaseInProgress, setPurchaseInProgress] = useState(false);
+  const [message, setMessage] = useState<string>("");
+  const [messageCashback, setMessageCashback] = useState<string>("");
+  const [showProgressBar, setShowProgressBar] = useState<boolean>(false);
+  const [purchaseInProgress, setPurchaseInProgress] = useState<boolean>(false);
 
   useEffect(() => {
     if (totalAmount != 0) {
@@ -20,34 +28,36 @@ const VendingMachine = ({
     }
   }, [totalAmount]);
 
-  const handlePurchase = (product: {
-    id?: number;
-    name: string;
-    price: number;
-  }): void => {
-    if (totalAmount >= product.price && !purchaseInProgress) {
-      setPurchaseInProgress(true);
-      setShowProgressBar(true);
-      setMessage(`Preparing your ${product.name}...`);
-      const cashBack = calculateCashback(totalAmount, product.price);
-      setTimeout(() => {
-        setShowProgressBar(false);
-        resetTotalAmount();
-        setPurchaseInProgress(false);
-        setMessage(`Enjoy your ${product.name}!`);
-        if (cashBack) {
-          setMessageCashback(`You have ${cashBack}${currency.sign} cashback.`);
-        }
-      }, 5000);
-    } else {
+  const handleClick = (product: Product): void => {
+    if (totalAmount < product.price && !purchaseInProgress) {
       setMessage(`Insert more coins to purchase ${product.name}.`);
+      setMessageCashback("");
+      return;
     }
+
+    handlePurchase(product);
   };
 
-  const calculateCashback = (totalAmount, price) => {
+  const handlePurchase = (product: Product): void => {
+    setPurchaseInProgress(true);
+    setShowProgressBar(true);
+    setMessage(`Preparing your ${product.name}...`);
+    const cashBack = calculateCashback(totalAmount, product.price);
+    setTimeout(() => {
+      setShowProgressBar(false);
+      resetTotalAmount();
+      setPurchaseInProgress(false);
+      setMessage(`Enjoy your ${product.name}!`);
+      if (cashBack) {
+        setMessageCashback(`You have ${cashBack}${currency.sign} cashback.`);
+      }
+    }, 5000);
+  };
+
+  const calculateCashback = (totalAmount: number, price: number): number | string => {
     const cashback = totalAmount - price;
     if (cashback === 0) {
-      return;
+      return 0;
     }
     if ((price * 100) % 10 === 0) {
       return cashback.toFixed(2);
@@ -70,7 +80,7 @@ const VendingMachine = ({
       />
       <Products
         products={products}
-        handleClick={handlePurchase}
+        handleClick={handleClick}
         disabled={purchaseInProgress}
       />
     </div>

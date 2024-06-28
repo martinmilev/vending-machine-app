@@ -1,13 +1,19 @@
 import { useState } from "react";
 import mockData from "../../mockApi/mockData.json";
+import { Product } from "../ts/types/product";
+import { Currency } from "../ts/types/currency";
 
 const useVendingMachine = () => {
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [products, setProducts] = useState([]);
-  const [currency, setCurrency] = useState({ sign: "", cent: "" });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [totalAmount, setTotalAmount] = useState<number>(0);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [currency, setCurrency] = useState<Currency>({
+    sign: "",
+    cent: "",
+    denominations: [],
+  });
 
-  const fetchData = async () => {
+  const fetchData = async (): Promise<void> => {
     try {
       const products = await fetchMockProducts();
       const currency = await fetchMockCurrency();
@@ -20,21 +26,19 @@ const useVendingMachine = () => {
     }
   };
 
-  const fetchMockProducts = () => {
-    return new Promise((resolve) => {
+  const fetchMockProducts = (): Promise<Product[]> =>
+    new Promise((resolve) => {
       setTimeout(() => {
         resolve(mockData.products);
       }, 1000);
     });
-  };
 
-  const fetchMockCurrency = () => {
-    return new Promise((resolve) => {
+  const fetchMockCurrency = (): Promise<Currency> =>
+    new Promise((resolve) => {
       setTimeout(() => {
         resolve(mockData.EU);
       }, 1000);
     });
-  };
 
   const handleCoinInsertion = (amount: number): void => {
     setTotalAmount((prevAmount) =>
