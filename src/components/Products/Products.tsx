@@ -1,5 +1,6 @@
 import React from "react";
 import { Product } from "../../ts/types/product";
+import { getUrl } from "../../utils/api"
 
 interface ProductsProps {
   products: Product[];
@@ -12,16 +13,7 @@ const Products: React.FC<ProductsProps> = ({
   handleClick,
   disabled,
 }) => {
-  //temporary fix
-  const getUrl = (): string => {
-    switch (import.meta.env.MODE) {
-      case "production":
-        return "https://raw.githubusercontent.com/martinmilev/vending-machine-app/master/";
-
-      default:
-        return "/";
-    }
-  };
+  const apiUrl = getUrl();
 
   return (
     <div className="row">
@@ -35,7 +27,7 @@ const Products: React.FC<ProductsProps> = ({
           >
             <div className="product-content">
               <img
-                src={`${getUrl()}src/assets/images/${product.image}`}
+                src={`${apiUrl}src/assets/images/${product.image}`}
                 alt={""}
                 className="product-image"
               />
