@@ -34,7 +34,7 @@ const VendingMachine: React.FC<VendingMachineProps> = ({
 
   const handleClick = (product: Product): void => {
     if (credit < product.price && !purchaseInProgress) {
-      setMessage(t("screen.error", { name: product.name }));
+      setMessage(t("screen.error") + " " + t(`products.${product.name}`));
       setMessageCashback("");
       return;
     }
@@ -57,14 +57,14 @@ const VendingMachine: React.FC<VendingMachineProps> = ({
   const startPurchaseProcess = (name: string): void => {
     setPurchaseInProgress(true);
     setShowProgressBar(true);
-    setMessage(t("screen.preparing", { name }));
+    setMessage(t("screen.preparing") + " " + t(`products.${name}`));
   };
 
   const completePurchaseProcess = (name: string, cashBack: number): void => {
     setShowProgressBar(false);
     resetTotalAmount();
     setPurchaseInProgress(false);
-    setMessage(t("screen.success", { name }));
+    setMessage(t("screen.success") + " " + t(`products.${name}`));
 
     if (cashBack) {
       setMessageCashback(

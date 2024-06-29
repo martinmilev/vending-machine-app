@@ -19,21 +19,20 @@ const Products: React.FC<ProductsProps> = ({
 
   return (
     <div className="row">
-      <div className="grid">
+      <div className="product">
         {products.map((product) => (
           <button
             key={product.id}
             onClick={() => handleClick(product)}
-            className={`grid-button`}
             disabled={disabled}
           >
-            <div className="product-content">
+            <div className="content">
               <img
                 src={`${apiUrl}src/assets/images/${product.name}.png`}
                 alt={""}
-                className="product-image"
+                className="image"
               />
-              <p className="product-info">
+              <p className="info">
                 {t(`products.${product.name}`)}
                 <br />
                 {product.price}€

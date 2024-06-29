@@ -4,7 +4,7 @@ interface ScreenProps {
 }
 
 const Screen: React.FC<ScreenProps> = ({ rows, showProgress }) => (
-  <div className="vending-machine-screen">
+  <div className="screen">
     <p>{rows[0]}</p>
     <p>{rows[1]}</p>
     {showProgress ? (

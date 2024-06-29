@@ -1,12 +1,12 @@
 :root {
-  --white: #ffffff;
+  --white: #cbcbcb;
+  --black: #040404;
   --primary-color: #242424;
   --secondary-color: #ccc;
   --accent-color: #4caf50;
   --highlight-color: #201a17;
   --hover-color: #32241d;
   --button-bg: #504a28;
-  --button-bg-color: #1a1a1a;
   --return-cash-bg: #2b3d6d;
   --font-size-large: 1.5rem;
   --font-size-medium: 1rem;
@@ -22,32 +22,22 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #000;
+  color: var(--white);
+  background-color: var(--black);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: var(--min-width);
-  min-height: 100vh;
-}
-
 button {
   color: var(--white);
   border-radius: var(--border-radius);
-  border: var(--border-width) solid transparent;
-  padding: var(--button-padding);
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
   background-color: var(--button-bg-color);
-  cursor: pointer;
   transition: border-color 0.25s;
+  cursor: pointer;
 
   &:hover {
     border-color: var(--white);

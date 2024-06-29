@@ -16,7 +16,7 @@ const Coins: React.FC<CoinsProps> = ({
 
   return (
     <div className="coins">
-      <div className="coin-buttons">
+      <div className="coins-buttons">
         {currency.denominations &&
           currency.denominations.map((d) => {
             if (d % 1 === 0) {

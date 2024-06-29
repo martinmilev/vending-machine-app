@@ -32,7 +32,7 @@
   min-height: 30%;
 }
 
-.vending-machine-screen {
+.screen {
   padding: var(--spacing-small) 0;
   color: var(--highlight-color);
   background-color: var(--secondary-color);
@@ -49,53 +49,67 @@
     font-size: var(--font-size-large);
     font-weight: bold;
   }
+
+  .progress-bar {
+    margin-top: var(--spacing-small);
+    width: 0%;
+    height: 1rem;
+    background-color: var(--accent-color);
+    animation: fillProgressBar 5s linear forwards;
+  }
 }
 
-.grid {
+.product {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-medium);
   max-width: 37.5rem;
   margin: var(--spacing-medium) 0;
   justify-content: center;
-}
 
-.grid-button {
-  background-color: var(--highlight-color);
-  border: var(--border-width) solid var(--secondary-color);
-  padding: var(--spacing-small);
-  width: 12.5rem;
-  height: 6.25rem;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.3s ease;
-  font-size: var(--font-size-medium);
+  .content {
+    display: flex;
+    align-items: center;
+  }
 
-  &:hover {
-    background-color: var(--hover-color);
+  .image {
+    width: 5rem;
+    height: 5rem;
+    margin: var(--spacing-small);
+    border-radius: var(--border-radius);
+    border: var(--border-width) solid var(--secondary-color);
+  }
+
+  .info {
+    margin: 0;
+    width: 6.25rem;
+  }
+
+  button {
+    background-color: var(--highlight-color);
+    border: var(--border-width) solid var(--secondary-color);
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--hover-color);
+    }
   }
 }
 
 .coins {
-  max-width: 10%;
+  max-width: 4rem;
   height: 90%;
   align-self: center;
 }
 
-.coin-buttons button,
+.coins-buttons button,
 .return-cash button {
   margin: var(--spacing-small);
-  height: 4.375rem;
-  width: 4.375rem;
-  min-width: 2.5rem;
-  min-height: 2.5rem;
+  height: 4rem;
+  width: 4rem;
   border-radius: 50%;
   background-color: var(--button-bg);
   border: var(--border-width) solid var(--secondary-color);
-  cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: var(--font-size-small);
 }
@@ -105,20 +119,6 @@
   background-color: var(--return-cash-bg);
   width: 5rem;
   margin: 0 0.313rem;
-}
-
-@media (max-width: 48rem) {
-  .coins {
-    max-width: 20%;
-  }
-}
-
-.progress-bar {
-  margin-top: var(--spacing-small);
-  width: 0%;
-  height: 1rem;
-  background-color: var(--accent-color);
-  animation: fillProgressBar 5s linear forwards;
 }
 
 @keyframes fillProgressBar {
@@ -133,23 +133,6 @@
 .progress-bar-container {
   width: 100%;
   height: 1.25rem;
-}
-
-.product-content {
-  display: flex;
-  align-items: center;
-}
-
-.product-image {
-  width: 5rem;
-  height: 5rem;
-  margin: var(--spacing-small);
-  border-radius: var(--border-radius);
-}
-
-.product-info {
-  margin: 0;
-  width: 6.25rem;
 }
 
 .loading {
@@ -174,5 +157,43 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 30rem) {
+  .screen {
+    p {
+    font-size: var(--font-size-small);
+    }
+  }
+
+  .coins {
+    max-width: 22%;
+    font-size: var(--font-size-small);
+    button {
+      height: 3rem;
+      width: 3rem;
+    }
+  }
+
+  .return-cash button {
+    width: 4rem;
+  }
+
+  .product {
+    .content {
+      font-size: var(--font-size-small);
+      flex-direction: column;
+      width: 4rem;
+      height: 7rem;
+    }
+
+    .image {
+      width: 3rem;
+      height: 3rem;
+      margin: var(--spacing-small);
+      border-radius: var(--border-radius);
+      border: var(--border-width) solid var(--secondary-color);
+    }
   }
 }
