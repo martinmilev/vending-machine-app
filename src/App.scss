@@ -1,19 +1,15 @@
 #root {
-  max-width: 1280px;
+  max-width: 80rem;
   height: 100%;
   margin: auto;
   text-align: center;
   padding: 0;
 }
 
-.container {
+.container,
+.inner-container {
   display: flex;
   justify-content: center;
-
-  .inner-container {
-    display: flex;
-    justify-content: center;
-  }
 }
 
 .machineContainer {
@@ -26,55 +22,56 @@
 
 .vending-machine {
   text-align: center;
-  background-color: #242424;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  background-color: var(--primary-color);
+  border: var(--border-width) solid var(--secondary-color);
+  border-radius: var(--border-radius);
   min-height: 30%;
-  .vending-machine-screen {
-    padding: 10px 0;
-    color: #201a17;
-    background-color: #ccc;
-    border-radius: 8px;
-    height: 110px;
-    width: 65%;
-    margin: auto;
-    margin-top: 20px;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+}
 
-    p {
-      margin: 0;
-      padding: 0;
-      font-size: 24px;
-      font-weight: bold;
-    }
+.vending-machine-screen {
+  padding: var(--spacing-small) 0;
+  color: var(--highlight-color);
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+  height: 6.875rem;
+  width: 65%;
+  margin: auto;
+  margin-top: var(--spacing-medium);
+  text-shadow: var(--border-width) var(--border-width) 0 rgba(0, 0, 0, 0.3);
+
+  p {
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-size-large);
+    font-weight: bold;
   }
 }
 
 .grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  max-width: 600px;
-  margin: 20px 0;
+  gap: var(--spacing-medium);
+  max-width: 37.5rem;
+  margin: var(--spacing-medium) 0;
   justify-content: center;
+}
 
-  .grid-button {
-    background-color: #201a17;
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 200px;
-    height: 100px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease;
-    font-size: 16px;
+.grid-button {
+  background-color: var(--highlight-color);
+  border: var(--border-width) solid var(--secondary-color);
+  padding: var(--spacing-small);
+  width: 12.5rem;
+  height: 6.25rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  font-size: var(--font-size-medium);
 
-    &:hover {
-      background-color: #32241d;
-    }
+  &:hover {
+    background-color: var(--hover-color);
   }
 }
 
@@ -82,49 +79,41 @@
   max-width: 10%;
   height: 90%;
   align-self: center;
-
-  .coin-buttons {
-    button {
-      margin: 10px;
-      height: 70px;
-      width: 70px;
-      min-width: 40px;
-      min-height: 40px;
-      border-radius: 50%;
-      background-color: #504a28;
-      border: 1px solid #ccc;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-size: 14px;
-    }
-  }
-
-  .return-cash {
-    button {
-      border-radius: 8px;
-      background-color: #2b3d6d;
-      border: 1px solid #ccc;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-size: 14px;
-      width: 80px;
-      margin: 0 5px;
-    }
-  }
 }
 
-@media (max-width: 768px) {
+.coin-buttons button,
+.return-cash button {
+  margin: var(--spacing-small);
+  height: 4.375rem;
+  width: 4.375rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--button-bg);
+  border: var(--border-width) solid var(--secondary-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: var(--font-size-small);
+}
+
+.return-cash button {
+  border-radius: var(--border-radius);
+  background-color: var(--return-cash-bg);
+  width: 5rem;
+  margin: 0 0.313rem;
+}
+
+@media (max-width: 48rem) {
   .coins {
     max-width: 20%;
   }
 }
 
-
 .progress-bar {
-  margin-top: 10px;
+  margin-top: var(--spacing-small);
   width: 0%;
-  height: 16px;
-  background-color: #4caf50;
+  height: 1rem;
+  background-color: var(--accent-color);
   animation: fillProgressBar 5s linear forwards;
 }
 
@@ -139,24 +128,24 @@
 
 .progress-bar-container {
   width: 100%;
-  height: 20px;
+  height: 1.25rem;
 }
 
 .product-content {
   display: flex;
   align-items: center;
+}
 
-  .product-image {
-    width: 80px;
-    height: 80px;
-    margin: 10px;
-    border-radius: 8px;
-  }
+.product-image {
+  width: 5rem;
+  height: 5rem;
+  margin: var(--spacing-small);
+  border-radius: var(--border-radius);
+}
 
-  .product-info {
-    margin: 0;
-    width: 100px;
-  }
+.product-info {
+  margin: 0;
+  width: 6.25rem;
 }
 
 .loading {
@@ -164,15 +153,15 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+}
 
-  .loader {
-    border: 16px solid #242424;
-    border-top: 16px solid #4caf50;
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-  }
+.loader {
+  border: var(--loader-border-width) solid var(--primary-color);
+  border-top: var(--loader-border-width) solid var(--accent-color);
+  border-radius: 50%;
+  width: 7.5rem;
+  height: 7.5rem;
+  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
