@@ -1,0 +1,20 @@
+{
+  "return-cash": "Връни",
+  "screen": {
+    "credit": "Кредит: {{amount}}{{sign}}",
+    "preparing": "Приготвяме вашето {{name}}...",
+    "success": "Насладете се на вашия {{name}}!",
+    "error": "Поставете още монети, за да закупите {{name}}.",
+    "cashback": "Имате {{cashback}}{{sign}} ресто."
+  },
+  "products": {
+    "espresso": "Еспресо",
+    "latte": "Лате",
+    "cappuccino": "Капучино",
+    "mocha": "Мока",
+    "americano": "Американо",
+    "macchiato": "Макиато",
+    "flatwhite": "Флет Уайт",
+    "affogato": "Афогато"
+  }
+}

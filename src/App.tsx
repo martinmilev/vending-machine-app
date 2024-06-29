@@ -3,6 +3,7 @@ import "./App.scss";
 import { Coins } from "./components/Coins";
 import VendingMachine from "./components/VendingMachine";
 import useVendingMachine from "./hooks/useVendingMachine";
+import { LanguageSwitch } from "./components/LanguageSwitch";
 
 const App = () => {
   const {
@@ -28,11 +29,12 @@ const App = () => {
   }
 
   return (
-    <div className="container">
-      <div className="inner-container">
+    <div>
+      <LanguageSwitch />
+      <div className="container">
         <VendingMachine
           products={products}
-          totalAmount={totalAmount}
+          credit={totalAmount}
           currency={currency}
           resetTotalAmount={resetTotalAmount}
         />
@@ -44,6 +46,6 @@ const App = () => {
       </div>
     </div>
   );
-}
+};
 
 export default App;

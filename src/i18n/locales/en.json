@@ -1,0 +1,20 @@
+{
+  "return-cash": "Return Cash",
+  "screen": {
+    "credit": "Credit: {{amount}}{{sign}}",
+    "preparing": "Preparing your {{name}}...",
+    "success": "Enjoy your {{name}}!",
+    "error": "Insert more coins to purchase {{name}}.",
+    "cashback": "You have {{cashback}}{{sign}} cashback."
+  },
+  "products": {
+    "espresso": "Espresso",
+    "latte": "Latte",
+    "cappuccino": "Cappuccino",
+    "mocha": "Mocha",
+    "americano": "Americano",
+    "macchiato": "Macchiato",
+    "flatwhite": "Flat White",
+    "affogato": "Affogato"
+  }
+}

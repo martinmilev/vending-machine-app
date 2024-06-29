@@ -1,6 +1,7 @@
 import React from "react";
 import { Product } from "../../ts/types/product";
-import { getUrl } from "../../utils/api"
+import { getUrl } from "../../utils/api";
+import { useTranslation } from "react-i18next";
 
 interface ProductsProps {
   products: Product[];
@@ -13,6 +14,7 @@ const Products: React.FC<ProductsProps> = ({
   handleClick,
   disabled,
 }) => {
+  const { t } = useTranslation();
   const apiUrl = getUrl();
 
   return (
@@ -27,12 +29,13 @@ const Products: React.FC<ProductsProps> = ({
           >
             <div className="product-content">
               <img
-                src={`${apiUrl}src/assets/images/${product.image}`}
+                src={`${apiUrl}src/assets/images/${product.name}.png`}
                 alt={""}
                 className="product-image"
               />
               <p className="product-info">
-                {product.name} <br />
+                {t(`products.${product.name}`)}
+                <br />
                 {product.price}€
               </p>
             </div>

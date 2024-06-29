@@ -1,13 +1,11 @@
 #root {
-  max-width: 80rem;
+  max-width: 42rem;
   height: 100%;
   margin: auto;
-  text-align: center;
   padding: 0;
 }
 
-.container,
-.inner-container {
+.container {
   display: flex;
   justify-content: center;
 }
@@ -18,6 +16,12 @@
 
 .coinContainer {
   flex: 1;
+}
+
+.language-switch {
+  button {
+    margin: 0.5rem;
+  }
 }
 
 .vending-machine {
