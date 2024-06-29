@@ -2,9 +2,9 @@
   "return-cash": "Return Cash",
   "screen": {
     "credit": "Credit: {{amount}}{{sign}}",
-    "preparing": "Preparing your {{name}}...",
-    "success": "Enjoy your {{name}}!",
-    "error": "Insert more coins to purchase {{name}}.",
+    "preparing": "Preparing your",
+    "success": "Enjoy your",
+    "error": "Insert more coins to purchase",
     "cashback": "You have {{cashback}}{{sign}} cashback."
   },
   "products": {
