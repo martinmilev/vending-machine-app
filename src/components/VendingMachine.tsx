@@ -3,6 +3,7 @@ import { Screen } from "./Screen";
 import { Products } from "./Products";
 import { Product } from "../ts/types/product";
 import { Currency } from "../ts/types/currency";
+import { calculateCashback } from "../utils/calculateCashback";
 
 interface VendingMachineProps {
   products: Product[];
@@ -22,6 +23,14 @@ const VendingMachine: React.FC<VendingMachineProps> = ({
   const [showProgressBar, setShowProgressBar] = useState<boolean>(false);
   const [purchaseInProgress, setPurchaseInProgress] = useState<boolean>(false);
 
+  const MESSAGES = {
+    credit: `Credit: ${totalAmount}${currency.sign}`,
+    preparing: (productName: string) => `Preparing your ${productName}...`,
+    enjoy: (productName: string) => `Enjoy your ${productName}!`,
+    cashback: (cashback: number) =>
+      `You have ${cashback}${currency.sign} cashback.`,
+  };
+
   useEffect(() => {
     if (totalAmount != 0) {
       setMessage("");
@@ -40,43 +49,40 @@ const VendingMachine: React.FC<VendingMachineProps> = ({
   };
 
   const handlePurchase = (product: Product): void => {
-    setPurchaseInProgress(true);
-    setShowProgressBar(true);
-    setMessage(`Preparing your ${product.name}...`);
-    const cashBack = calculateCashback(totalAmount, product.price);
-    setTimeout(() => {
-      setShowProgressBar(false);
-      resetTotalAmount();
-      setPurchaseInProgress(false);
-      setMessage(`Enjoy your ${product.name}!`);
-      if (cashBack) {
-        setMessageCashback(`You have ${cashBack}${currency.sign} cashback.`);
-      }
-    }, 5000);
+    startPurchaseProcess(product);
+    setTimeout(
+      () =>
+        completePurchaseProcess(
+          product,
+          calculateCashback(totalAmount, product.price)
+        ),
+      5000
+    );
   };
 
-  const calculateCashback = (totalAmount: number, price: number): number | string => {
-    const cashback = totalAmount - price;
-    if (cashback === 0) {
-      return 0;
+  const startPurchaseProcess = (product: Product): void => {
+    setPurchaseInProgress(true);
+    setShowProgressBar(true);
+    setMessage(MESSAGES.preparing(product.name));
+  };
+
+  const completePurchaseProcess = (
+    product: Product,
+    cashBack: number
+  ): void => {
+    setShowProgressBar(false);
+    resetTotalAmount();
+    setPurchaseInProgress(false);
+    setMessage(MESSAGES.enjoy(product.name));
+    if (cashBack) {
+      setMessageCashback(MESSAGES.cashback(cashBack));
     }
-    if ((price * 100) % 10 === 0) {
-      return cashback.toFixed(2);
-    }
-    if (price % 10 === 0) {
-      return cashback;
-    }
-    return cashback.toFixed(1);
   };
 
   return (
     <div className="vending-machine">
       <Screen
-        rows={[
-          `Credit: ${totalAmount}${currency.sign}`,
-          message,
-          messageCashback,
-        ]}
+        rows={[MESSAGES.credit, message, messageCashback]}
         showProgress={showProgressBar}
       />
       <Products
