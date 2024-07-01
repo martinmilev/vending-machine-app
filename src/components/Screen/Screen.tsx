@@ -1,7 +1,11 @@
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Currency } from "../../ts/types/currency";
-import { selectFirstRow, selectSecondRow, selectShowProgressBar } from "../../store/screenSlice";
+import {
+  selectFirstRow,
+  selectSecondRow,
+  selectShowProgressBar,
+} from "../../store/screenSlice";
 import { selectCurrency } from "../../store/currencySlice";
 import { selectCredit } from "../../store/creditSlice";
 
@@ -21,9 +25,7 @@ const Screen = () => {
         <div className="progress-bar-container">
           <div className={`progress-bar ${showProgress ? "fill" : ""}`}></div>
         </div>
-      ) : (
-        <p>{secondRow}</p>
-      )}
+      ) : ( <p>{secondRow}</p> )}
     </div>
   );
 };

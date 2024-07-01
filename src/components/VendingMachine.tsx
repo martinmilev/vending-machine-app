@@ -18,6 +18,7 @@ import {
   selectPurchaseInProgress,
   setPurchaseInProgress,
 } from "../store/vendingSlice";
+import SugarScale from "./SugarScale/SugarScale";
 
 const VendingMachine = () => {
   const dispatch = useDispatch();
@@ -83,6 +84,7 @@ const VendingMachine = () => {
   return (
     <div className="vending-machine">
       <Screen />
+      <SugarScale />
       <Products
         products={products}
         handleClick={handleClick}

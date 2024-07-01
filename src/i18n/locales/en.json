@@ -1,5 +1,6 @@
 {
   "return-cash": "Return Cash",
+  "sugar": "Add sugar",
   "screen": {
     "credit": "Credit: {{amount}}{{sign}}",
     "preparing": "Preparing your",

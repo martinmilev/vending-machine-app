@@ -1,5 +1,6 @@
 {
   "return-cash": "Връни",
+  "sugar": "Добави захар",
   "screen": {
     "credit": "Кредит: {{amount}}{{sign}}",
     "preparing": "Приготвяме вашето",
