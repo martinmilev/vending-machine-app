@@ -1,20 +1,31 @@
-interface ScreenProps {
-  rows: string[];
-  showProgress: boolean;
-}
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Currency } from "../../ts/types/currency";
+import { selectFirstRow, selectSecondRow, selectShowProgressBar } from "../../store/screenSlice";
+import { selectCurrency } from "../../store/currencySlice";
+import { selectCredit } from "../../store/creditSlice";
 
-const Screen: React.FC<ScreenProps> = ({ rows, showProgress }) => (
-  <div className="screen">
-    <p>{rows[0]}</p>
-    <p>{rows[1]}</p>
-    {showProgress ? (
-      <div className="progress-bar-container">
-        <div className={`progress-bar ${showProgress ? "fill" : ""}`}></div>
-      </div>
-    ) : (
-      <p>{rows[2]}</p>
-    )}
-  </div>
-);
+const Screen = () => {
+  const currency: Currency = useSelector(selectCurrency);
+  const showProgress: boolean = useSelector(selectShowProgressBar);
+  const firstRow: string = useSelector(selectFirstRow);
+  const secondRow: string = useSelector(selectSecondRow);
+  const credit: number = useSelector(selectCredit);
+  const { t } = useTranslation();
+
+  return (
+    <div className="screen">
+      <p>{t("screen.credit", { amount: credit, sign: currency.sign })}</p>
+      <p>{firstRow}</p>
+      {showProgress ? (
+        <div className="progress-bar-container">
+          <div className={`progress-bar ${showProgress ? "fill" : ""}`}></div>
+        </div>
+      ) : (
+        <p>{secondRow}</p>
+      )}
+    </div>
+  );
+};
 
 export default Screen;

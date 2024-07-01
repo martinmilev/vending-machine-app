@@ -1,6 +1,6 @@
 import React from "react";
 import { Product } from "../../ts/types/product";
-import { getUrl } from "../../utils/api";
+import { getUrl } from "../../api/mockedApi";
 import { useTranslation } from "react-i18next";
 
 interface ProductsProps {

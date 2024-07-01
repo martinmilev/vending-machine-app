@@ -1,41 +1,46 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Screen } from "./Screen";
 import { Products } from "./Products";
 import { Product } from "../ts/types/product";
-import { Currency } from "../ts/types/currency";
 import { calculateCashback } from "../utils/calculateCashback";
+import { Currency } from "../ts/types/currency";
+import { selectCredit, setCredit } from "../store/creditSlice";
+import { selectProducts } from "../store/productsSlice";
+import { selectCurrency } from "../store/currencySlice";
+import {
+  setFirstRow,
+  setSecondRow,
+  setShowProgressBar,
+} from "../store/screenSlice";
+import {
+  selectPurchaseInProgress,
+  setPurchaseInProgress,
+} from "../store/vendingSlice";
 
-interface VendingMachineProps {
-  credit: number;
-  products: Product[];
-  currency: Currency;
-  resetTotalAmount: () => void;
-}
+const VendingMachine = () => {
+  const dispatch = useDispatch();
+  const credit: number = useSelector(selectCredit);
+  const products: Product[] = useSelector(selectProducts);
+  const currency: Currency = useSelector(selectCurrency);
+  const purchaseInProgress: boolean = useSelector(selectPurchaseInProgress);
 
-const VendingMachine: React.FC<VendingMachineProps> = ({
-  products,
-  credit,
-  currency,
-  resetTotalAmount,
-}) => {
-  const [message, setMessage] = useState<string>("");
-  const [messageCashback, setMessageCashback] = useState<string>("");
-  const [purchaseInProgress, setPurchaseInProgress] = useState<boolean>(false);
-  const [showProgressBar, setShowProgressBar] = useState<boolean>(false);
   const { t } = useTranslation();
 
   useEffect(() => {
     if (credit != 0) {
-      setMessage("");
-      setMessageCashback("");
+      dispatch(setFirstRow(""));
+      dispatch(setSecondRow(""));
     }
-  }, [credit]);
+  }, [credit, dispatch]);
 
   const handleClick = (product: Product): void => {
     if (credit < product.price && !purchaseInProgress) {
-      setMessage(t("screen.error") + " " + t(`products.${product.name}`));
-      setMessageCashback("");
+      dispatch(
+        setFirstRow(t("screen.error") + " " + t(`products.${product.name}`))
+      );
+      dispatch(setSecondRow(""));
       return;
     }
 
@@ -55,34 +60,29 @@ const VendingMachine: React.FC<VendingMachineProps> = ({
   };
 
   const startPurchaseProcess = (name: string): void => {
-    setPurchaseInProgress(true);
-    setShowProgressBar(true);
-    setMessage(t("screen.preparing") + " " + t(`products.${name}`));
+    dispatch(setPurchaseInProgress(true));
+    dispatch(setShowProgressBar(true));
+    dispatch(setFirstRow(t("screen.preparing") + " " + t(`products.${name}`)));
   };
 
   const completePurchaseProcess = (name: string, cashBack: number): void => {
-    setShowProgressBar(false);
-    resetTotalAmount();
-    setPurchaseInProgress(false);
-    setMessage(t("screen.success") + " " + t(`products.${name}`));
+    dispatch(setShowProgressBar(false));
+    dispatch(setCredit(0));
+    dispatch(setPurchaseInProgress(false));
+    dispatch(setFirstRow(t("screen.success") + " " + t(`products.${name}`)));
 
     if (cashBack) {
-      setMessageCashback(
-        t("screen.cashback", { cashback: cashBack, sign: currency.sign })
+      dispatch(
+        setSecondRow(
+          t("screen.cashback", { cashback: cashBack, sign: currency.sign })
+        )
       );
     }
   };
 
   return (
     <div className="vending-machine">
-      <Screen
-        rows={[
-          t("screen.credit", { amount: credit, sign: currency.sign }),
-          message,
-          messageCashback,
-        ]}
-        showProgress={showProgressBar}
-      />
+      <Screen />
       <Products
         products={products}
         handleClick={handleClick}

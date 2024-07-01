@@ -1,24 +1,20 @@
 import { useEffect } from "react";
 import "./App.scss";
-import { Coins } from "./components/Coins";
+import { useDispatch, useSelector } from "react-redux";
+import { selectLoading } from "./store/loadingSlice";
+import { fetchCurrency, fetchProducts } from "./api/mockedApi";
 import VendingMachine from "./components/VendingMachine";
-import useVendingMachine from "./hooks/useVendingMachine";
+import { Coins } from "./components/Coins";
 import { LanguageSwitch } from "./components/LanguageSwitch";
 
 const App = () => {
-  const {
-    fetchData,
-    totalAmount,
-    products,
-    currency,
-    loading,
-    handleCoinInsertion,
-    resetTotalAmount,
-  } = useVendingMachine();
+  const loading = useSelector(selectLoading);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    dispatch(fetchProducts());
+    dispatch(fetchCurrency());
+  }, [dispatch]);
 
   if (loading) {
     return (
@@ -32,17 +28,8 @@ const App = () => {
     <div>
       <LanguageSwitch />
       <div className="container">
-        <VendingMachine
-          products={products}
-          credit={totalAmount}
-          currency={currency}
-          resetTotalAmount={resetTotalAmount}
-        />
-        <Coins
-          currency={currency}
-          handleCoinInsertion={handleCoinInsertion}
-          returnCash={resetTotalAmount}
-        />
+        <VendingMachine />
+        <Coins />
       </div>
     </div>
   );

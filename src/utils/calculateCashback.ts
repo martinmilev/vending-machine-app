@@ -1,8 +1,8 @@
 export const calculateCashback = (
-  totalAmount: number,
+  credit: number,
   price: number
 ): number => {
-  const cashback = totalAmount - price;
+  const cashback = credit - price;
 
   if (cashback === 0) {
     return 0;
